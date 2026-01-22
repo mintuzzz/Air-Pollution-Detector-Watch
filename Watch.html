@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analog Watch</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.clock {
+  width: 200px;
+  height: 200px;
+  border: 5px solid white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.hand {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: white;
+  top: 20px;
+  left: 99px;
+  transform-origin: bottom;
+}
+
+#second {
+  background: red;
+}
+
+.hour {
+  height: 50px;
+  width: 4px;
+  background: white;
+  top: 50px;
+  left: 98px;
+}
+
+.minute {
+  height: 70px;
+  width: 3px;
+  background: white;
+  top: 30px;
+  left: 98px;
+}
+
+.center {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 95px;
+  left: 95px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  font-family: Arial, sans-serif;
+}
+
+/* WATCH BODY */
+.watch-body {
+  background: #222;
+  padding: 25px 20px 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* LEDS */
+.leds {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.green { background: #2ecc71; }
+.yellow { background: #f1c40f; }
+.red { background: #e74c3c; }
+
+/* CLOCK FACE */
+.clock {
+  width: 220px;
+  height: 220px;
+  background: #000;
+  border-radius: 50%;
+  border: 6px solid #444;
+  position: relative;
+}
+
+
+
+.numbers span::after {
+  content: attr(style);
+  transform: rotate(calc(var(--n) * -30deg));
+}
+
+/* HANDS */
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom;
+}
+
+.hour {
+  width: 6px;
+  height: 55px;
+  background: white;
+}
+
+.minute {
+  width: 4px;
+  height: 75px;
+  background: white;
+}
+
+.second {
+  width: 2px;
+  height: 90px;
+  background: white;
+}
+
+/* CENTER */
+.center {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.numbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Numbers style */
+.numbers span {
+  position: absolute;
+  width: 24px;          /* 👈 SAME WIDTH FOR ALL NUMBERS */
+  text-align: center;  /* 👈 CENTER TEXT */
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+.numbers span {
+  width: 26px !important;
+  text-align: center !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Number positions */
+.n12 { top: 10px; left: 50%; transform: translateX(-50%); }
+.n1  { top: 30px; right: 40px; }
+.n2  { top: 60px; right: 15px; }
+.n3  { top: 50%; right: 10px; transform: translateY(-50%); }
+.n4  { bottom: 60px; right: 15px; }
+.n5  { bottom: 30px; right: 40px; }
+.n6  { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.n7  { bottom: 30px; left: 40px; }
+.n8  { bottom: 60px; left: 15px; }
+.n9  { top: 50%; left: 10px; transform: translateY(-50%); }
+.n10 { top: 60px; left: 15px; }
+.n11 { top: 30px; left: 40px; }
+
+
+</style>
+</head>
+
+<body>
+
+<div class="watch-body">
+  <div class="leds">
+    <span class="led green"></span>
+    <span class="led yellow"></span>
+    <span class="led red"></span>
+  </div>
+
+  <div class="clock">
+   <div class="numbers">
+  <span class="n12">12</span>
+  <span class="n1">1</span>
+  <span class="n2">2</span>
+  <span class="n3">3</span>
+  <span class="n4">4</span>
+  <span class="n5">5</span>
+  <span class="n6">6</span>
+  <span class="n7">7</span>
+  <span class="n8">8</span>
+  <span class="n9">9</span>
+  <span class="n10">10</span>
+  <span class="n11">11</span>
+</div>
+
+    <div id="hour" class="hand hour"></div>
+    <div id="minute" class="hand minute"></div>
+    <div id="second" class="hand second"></div>
+    <div class="center"></div>
+  </div>
+</div>
+
+<script>
+setInterval(function () {
+  var now = new Date();
+  var sec = now.getSeconds();
+  var min = now.getMinutes();
+  var hr  = now.getHours();
+
+  document.getElementById("second").style.transform =
+    "rotate(" + (sec * 6) + "deg)";
+
+  document.getElementById("minute").style.transform =
+    "rotate(" + (min * 6) + "deg)";
+
+  document.getElementById("hour").style.transform =
+    "rotate(" + ((hr % 12) * 30 + min / 2) + "deg)";
+}, 1000);
+
+
+</script>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const numbers = document.querySelectorAll(".numbers span");
+  const radius = 90;
+
+  numbers.forEach((num, i) => {
+    const angle = i * 30;
+    const rad = (angle - 90) * Math.PI / 180;
+
+    const x = radius * Math.cos(rad);
+    const y = radius * Math.sin(rad);
+
+    num.style.left = "50%";
+    num.style.top = "50%";
+    num.style.transform =
+      translate(${x}px, ${y}px) translate(-50%, -50%);
+  });
+});
+</script>
+</body>
+</html>
